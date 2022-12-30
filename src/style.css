@@ -45,7 +45,7 @@ small {
   position: relative;
   top: -22px;
 }
-.relevent-icon {
+#relevent-icon {
   position: relative;
   margin-left: -7px;
   margin-top: -25px;
@@ -100,15 +100,17 @@ input[type="submit"]:hover {
 .weather-app-forcast {
   text-align: center;
 }
-#forcast-icon {
-  margin-left: -11px;
+
+.forcast-icon {
+  position: relative;
+  margin-left: -12px;
   margin-top: -15px;
   margin-bottom: -15px;
 }
 
 .forcast-day {
   color: #70757a;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .forcast-temp {

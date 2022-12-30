@@ -89,6 +89,30 @@ function convertTempToCelsius(event) {
   farenhitElement.classList.remove("active");
 }
 
+function displayForcast() {
+  let forcastElement = document.querySelector("#forcast");
+  let forcastHTML = `<div class="row">`;
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  days.forEach(function (day) {
+    forcastHTML =
+      forcastHTML +
+      `<div class="col-2">
+                <div class="forcast-day">${day}</div>
+                <img
+                  src="https://openweathermap.org/img/wn/01d@2x.png"
+                  alt=""
+                  class="forcast-icon"
+                />
+
+                <div class="forcast-temp">
+                  <span class="forcast-temp-max">25°⬆</span>
+                  <span class="forcast-temp-min">10°⬇</span>
+                </div>
+              </div>`;
+  });
+  forcastHTML = forcastHTML + `</div>`;
+  forcastElement.innerHTML = forcastHTML;
+}
 let celsius = null;
 
 let now = new Date();
@@ -102,3 +126,5 @@ farenhitElement.addEventListener("click", convertTempToFarenhit);
 
 let celsiusElement = document.querySelector("#celsius");
 celsiusElement.addEventListener("click", convertTempToCelsius);
+
+displayForcast();
