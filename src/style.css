@@ -111,8 +111,12 @@ input[type="submit"]:hover {
   font-size: 16px;
 }
 
-.forcast-min-max {
+.forcast-temp {
   color: #70757a;
   font-size: 12px;
   margin-bottom: 16px;
+}
+
+.forcast-temp-max {
+  font-weight: bold;
 }
