@@ -17,6 +17,10 @@ function displayTemp(response) {
   icon.setAttribute("alt", response.data.weather[0].descriptions);
 
   celsius = response.data.main.temp;
+  lat = response.data.coord.lat;
+  lon = response.data.coord.lon;
+  console.log(lat);
+  addApi();
 }
 
 function showTime(Date) {
@@ -61,7 +65,7 @@ function showTime(Date) {
 }
 
 function search(city) {
-  let apiKey = "7d5433d322af5ac78f642274f8113911";
+  let apiKey = "f5029b784306910c19746e40c14d6cd3";
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   console.log(apiURL);
   axios.get(apiURL).then(displayTemp);
@@ -113,7 +117,15 @@ function displayForcast() {
   forcastHTML = forcastHTML + `</div>`;
   forcastElement.innerHTML = forcastHTML;
 }
+function addApi() {
+  let apiKey = "f5029b784306910c19746e40c14d6cd3";
+  let apiURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+  console.log(apiURL);
+  displayForcast();
+}
 let celsius = null;
+let lat = null;
+let lon = null;
 
 let now = new Date();
 showTime(now);
@@ -126,5 +138,3 @@ farenhitElement.addEventListener("click", convertTempToFarenhit);
 
 let celsiusElement = document.querySelector("#celsius");
 celsiusElement.addEventListener("click", convertTempToCelsius);
-
-displayForcast();
