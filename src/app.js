@@ -5,21 +5,20 @@ function displayTemp(response) {
   let wind = document.querySelector("#wind");
   let state = document.querySelector("#weather-state");
   let icon = document.querySelector("#relevent-icon");
-  h1.innerHTML = response.data.name;
-  strong.innerHTML = Math.round(response.data.main.temp);
-  humidity.innerHTML = Math.round(response.data.main.humidity);
+  h1.innerHTML = response.data.city;
+  strong.innerHTML = Math.round(response.data.temperature.current);
+  humidity.innerHTML = Math.round(response.data.temperature.humidity);
   wind.innerHTML = Math.round(response.data.wind.speed);
-  state.innerHTML = response.data.weather[0].description;
-  icon.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  icon.setAttribute("alt", response.data.weather[0].descriptions);
+  state.innerHTML = response.data.condition.description;
+  icon.setAttribute("src", response.data.condition.icon_url);
+  icon.setAttribute("alt", response.data.condition.description);
 
-  celsius = response.data.main.temp;
-  lat = response.data.coord.lat;
-  lon = response.data.coord.lon;
-  console.log(lat);
+  celsius = response.data.temperature.current;
+  //lat = response.data.coordinates.latitude;
+  //lon = response.data.coordinates.longitude;
+  //console.log(lat);
+  mainCity = response.data.city;
+  console.log(mainCity);
   addApi();
 }
 
@@ -65,8 +64,8 @@ function showTime(Date) {
 }
 
 function search(city) {
-  let apiKey = "f5029b784306910c19746e40c14d6cd3";
-  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let apiKey = "bfa61db2bc3af1t5c04ce30131329o2a";
+  let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
   console.log(apiURL);
   axios.get(apiURL).then(displayTemp);
 }
@@ -118,14 +117,15 @@ function displayForcast() {
   forcastElement.innerHTML = forcastHTML;
 }
 function addApi() {
-  let apiKey = "f5029b784306910c19746e40c14d6cd3";
-  let apiURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+  let apiKey = "bfa61db2bc3af1t5c04ce30131329o2a";
+  let apiURL = `https://api.shecodes.io/weather/v1/forecast?query=${mainCity}&key=${apiKey}`;
   console.log(apiURL);
   displayForcast();
 }
 let celsius = null;
-let lat = null;
-let lon = null;
+//let lat = null;
+//let lon = null;
+let mainCity = null;
 
 let now = new Date();
 showTime(now);
