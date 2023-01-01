@@ -14,11 +14,7 @@ function displayTemp(response) {
   icon.setAttribute("alt", response.data.condition.description);
 
   celsius = response.data.temperature.current;
-  //lat = response.data.coordinates.latitude;
-  //lon = response.data.coordinates.longitude;
-  //console.log(lat);
   mainCity = response.data.city;
-  console.log(mainCity);
   addApi();
 }
 
@@ -92,26 +88,33 @@ function convertTempToCelsius(event) {
   farenhitElement.classList.remove("active");
 }
 
-function displayForcast() {
+function displayForcast(response) {
+  let forcast = response.data.daily;
   let forcastElement = document.querySelector("#forcast");
   let forcastHTML = `<div class="row">`;
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-  days.forEach(function (day) {
-    forcastHTML =
-      forcastHTML +
-      `<div class="col-2">
-                <div class="forcast-day">${day}</div>
+  //let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  forcast.forEach(function (forcastDay, index) {
+    if (index < 6) {
+      forcastHTML =
+        forcastHTML +
+        `<div class="col-2">
+                <div class="forcast-day">${forcastDay.time}</div>
                 <img
-                  src="https://openweathermap.org/img/wn/01d@2x.png"
-                  alt=""
+                  src=${forcastDay.condition.icon_url}
+                  alt=${forcastDay.condition.description}
                   class="forcast-icon"
                 />
 
                 <div class="forcast-temp">
-                  <span class="forcast-temp-max">25°⬆</span>
-                  <span class="forcast-temp-min">10°⬇</span>
+                  <span class="forcast-temp-max">${Math.round(
+                    forcastDay.temperature.maximum
+                  )}⬆</span>
+                  <span class="forcast-temp-min">${Math.round(
+                    forcastDay.temperature.minimum
+                  )}⬇</span>
                 </div>
               </div>`;
+    }
   });
   forcastHTML = forcastHTML + `</div>`;
   forcastElement.innerHTML = forcastHTML;
@@ -120,11 +123,10 @@ function addApi() {
   let apiKey = "bfa61db2bc3af1t5c04ce30131329o2a";
   let apiURL = `https://api.shecodes.io/weather/v1/forecast?query=${mainCity}&key=${apiKey}`;
   console.log(apiURL);
-  displayForcast();
+  axios.get(apiURL).then(displayForcast);
+  //displayForcast();
 }
 let celsius = null;
-//let lat = null;
-//let lon = null;
 let mainCity = null;
 
 let now = new Date();
