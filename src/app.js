@@ -88,17 +88,23 @@ function convertTempToCelsius(event) {
   farenhitElement.classList.remove("active");
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 function displayForcast(response) {
   let forcast = response.data.daily;
   let forcastElement = document.querySelector("#forcast");
   let forcastHTML = `<div class="row">`;
-  //let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   forcast.forEach(function (forcastDay, index) {
-    if (index < 6) {
+    if (0 < index && index < 7) {
       forcastHTML =
         forcastHTML +
         `<div class="col-2">
-                <div class="forcast-day">${forcastDay.time}</div>
+                <div class="forcast-day">${formatDay(forcastDay.time)}</div>
                 <img
                   src=${forcastDay.condition.icon_url}
                   alt=${forcastDay.condition.description}
@@ -126,6 +132,7 @@ function addApi() {
   axios.get(apiURL).then(displayForcast);
   //displayForcast();
 }
+
 let celsius = null;
 let mainCity = null;
 
