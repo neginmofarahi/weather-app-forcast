@@ -13,7 +13,6 @@ function displayTemp(response) {
   icon.setAttribute("src", response.data.condition.icon_url);
   icon.setAttribute("alt", response.data.condition.description);
 
-  celsius = response.data.temperature.current;
   mainCity = response.data.city;
   addApi();
 }
@@ -72,22 +71,6 @@ function submit(event) {
   search(cityElement.value);
 }
 
-function convertTempToFarenhit(event) {
-  event.preventDefault();
-  let strongElement = document.querySelector("strong");
-  strongElement.innerHTML = Math.round(celsius * 1.8 + 32);
-  farenhitElement.classList.add("active");
-  celsiusElement.classList.remove("active");
-}
-
-function convertTempToCelsius(event) {
-  event.preventDefault();
-  let strongElement = document.querySelector("strong");
-  strongElement.innerHTML = Math.round(celsius);
-  celsiusElement.classList.add("active");
-  farenhitElement.classList.remove("active");
-}
-
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -133,7 +116,6 @@ function addApi() {
   //displayForcast();
 }
 
-let celsius = null;
 let mainCity = null;
 
 let now = new Date();
@@ -141,9 +123,3 @@ showTime(now);
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", submit);
-
-let farenhitElement = document.querySelector("#farenhit");
-farenhitElement.addEventListener("click", convertTempToFarenhit);
-
-let celsiusElement = document.querySelector("#celsius");
-celsiusElement.addEventListener("click", convertTempToCelsius);
